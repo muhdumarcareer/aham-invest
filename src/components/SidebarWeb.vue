@@ -18,24 +18,6 @@
         value="market"
         @click="goToOtherPage('/market')"
       ></v-list-item>
-      <v-list-item
-        prepend-icon="mdi-wallet"
-        title="Wallet"
-        value="wallet"
-        @click="goToOtherPage('/wallet')"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="mdi-account"
-        title="Profile"
-        value="profile"
-        @click="goToOtherPage('/profile')"
-      ></v-list-item>
-      <v-list-item
-        prepend-icon="mdi-account"
-        title="Profile2"
-        value="profile2"
-        @click="goToOtherPage('/profile2')"
-      ></v-list-item>
       <v-divider />
       <v-list-item
         prepend-icon="mdi-logout"

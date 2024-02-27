@@ -1,10 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from '@/views/home-view.vue'
-import About from '@/views/about-view.vue'
 import Login from '@/views/login-view.vue'
 import Market from '@/views/market-view.vue'
 import Product from '@/views/product-view.vue'
-import Profile from '@/views/profile-view.vue'
 import Wallet from '@/views/wallet-view.vue'
 
 const routes = [
@@ -16,27 +13,12 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: About
+    component: Wallet
   },
   {
     path: '/market',
     name: 'market',
     component: Market
-  },
-  {
-    path: '/wallet',
-    name: 'wallet',
-    component: Wallet
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: Profile
   },
   {
     path: '/product/:id',

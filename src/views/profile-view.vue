@@ -10,8 +10,29 @@
 </template>
 
 <script>
-import MainSidebar from '@/components/MainSidebar.vue';
+import MainSidebar from "@/components/MainSidebar.vue";
+import axios from "axios";
 export default {
   components: { MainSidebar },
+  data() {
+    return {
+      answer: [],
+    };
+  },
+  methods: {
+    async getBitcoinIndex() {
+      try {
+        const { data } = await axios.get(
+          `${process.env.VUE_APP_ENDPOINT_URL}/funds`
+        );
+        this.answer = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  beforeMount() {
+    this.getBitcoinIndex();
+  },
 };
 </script>
