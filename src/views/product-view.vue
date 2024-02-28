@@ -47,10 +47,11 @@
                                     (e) =>
                                       e.fundId === Number(this.$route.params.id)
                                   ).nav_price *
-                                  userDetail.fund?.find(
-                                    (e) =>
-                                      e.fundId === Number(this.$route.params.id)
-                                  ).unit
+                                    userDetail.fund?.find(
+                                      (e) =>
+                                        e.fundId ===
+                                        Number(this.$route.params.id)
+                                    ).unit ?? 0
                                 ).toFixed(2)
                               }}
                             </p>

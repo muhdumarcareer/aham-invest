@@ -24,7 +24,7 @@
                   variant="tonal"
                 >
                   <p class="text-h4 text-center" style="font-weight: 700">
-                    RM{{ (userDetail?.totalValue ?? 0).toFixed(2) }}
+                    RM{{ userDetail.totalValue }}
                   </p>
                   <p class="text-center">Total Asset Accumulated</p>
                   <p class="text-center font-italic">
@@ -67,10 +67,7 @@
                 </v-card-text>
               </v-row>
               <v-row>
-                <line-chart
-                  :data="userPerformance"
-                  height="150px"
-                ></line-chart>
+                <line-chart :data="userPerformance" height="150px"></line-chart>
               </v-row>
             </v-card>
           </v-container>
@@ -118,7 +115,8 @@
                             Current Value
                           </p>
                           <p class="text-center">
-                            RM {{ (fund.nav_price * fund.unit).toFixed(2) }}
+                            RM
+                            {{ (fund.nav_price * fund.unit ?? 0).toFixed(2) }}
                           </p>
                         </div>
                         <div style="">
@@ -130,7 +128,7 @@
                             {{
                               (
                                 fund.nav_price * fund.unit -
-                                fund.avg_price * fund.unit
+                                  fund.avg_price * fund.unit ?? 0
                               ).toFixed(2)
                             }}
                           </p>
