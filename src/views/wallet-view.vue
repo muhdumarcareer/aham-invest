@@ -46,21 +46,21 @@
                     @click="changeDataOneMonth('one')"
                     :color="tabPerformance === 'one' ? 'green' : 'blue'"
                     :variant="tabPerformance === 'one' ? 'flat' : 'tonal'"
-                    >1M</v-chip
+                    >1W</v-chip
                   >
                   <v-chip
                     @click="changeDataOneMonth('two')"
                     :color="tabPerformance === 'two' ? 'green' : 'blue'"
                     :variant="tabPerformance === 'two' ? 'flat' : 'tonal'"
                   >
-                    3M
+                    1M
                   </v-chip>
                   <v-chip
                     @click="changeDataOneMonth('three')"
                     :color="tabPerformance === 'three' ? 'green' : 'blue'"
                     :variant="tabPerformance === 'three' ? 'flat' : 'tonal'"
                   >
-                    YTD
+                    3M
                   </v-chip>
                 </v-card-text>
               </v-row>

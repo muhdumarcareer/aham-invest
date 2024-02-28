@@ -10,12 +10,12 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                  <v-text-field v-model="email" :rules="emailRules" label="E-mail" readonly required></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
                   <v-text-field v-model="password" :rules="passwordRules" type="password" label="Password"
-                    required></v-text-field>
+                    readonly required></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
@@ -35,8 +35,8 @@
 <script>
 export default {
   data: () => ({
-    email: '',
-    password: '',
+    email: 'umar@test.com',
+    password: 'password',
     emailRules: [
       value => {
         if (value) return true
