@@ -43,22 +43,24 @@
                 <v-card-text class="d-flex justify-space-evenly">
                   <v-chip
                     style=""
-                    @click="changeDataOneMonth('one')"
-                    :color="tabPerformance === 'one' ? 'green' : 'blue'"
-                    :variant="tabPerformance === 'one' ? 'flat' : 'tonal'"
+                    @click="changeDataOneMonth('one_week')"
+                    :color="tabPerformance === 'one_week' ? 'green' : 'blue'"
+                    :variant="tabPerformance === 'one_week' ? 'flat' : 'tonal'"
                     >1W</v-chip
                   >
                   <v-chip
-                    @click="changeDataOneMonth('two')"
-                    :color="tabPerformance === 'two' ? 'green' : 'blue'"
-                    :variant="tabPerformance === 'two' ? 'flat' : 'tonal'"
+                    @click="changeDataOneMonth('one_month')"
+                    :color="tabPerformance === 'one_month' ? 'green' : 'blue'"
+                    :variant="tabPerformance === 'one_month' ? 'flat' : 'tonal'"
                   >
                     1M
                   </v-chip>
                   <v-chip
-                    @click="changeDataOneMonth('three')"
-                    :color="tabPerformance === 'three' ? 'green' : 'blue'"
-                    :variant="tabPerformance === 'three' ? 'flat' : 'tonal'"
+                    @click="changeDataOneMonth('three_month')"
+                    :color="tabPerformance === 'three_month' ? 'green' : 'blue'"
+                    :variant="
+                      tabPerformance === 'three_month' ? 'flat' : 'tonal'
+                    "
                   >
                     3M
                   </v-chip>
@@ -66,7 +68,7 @@
               </v-row>
               <v-row>
                 <line-chart
-                  :data="{ '2017-05-13': 2, '2017-05-14': 5 }"
+                  :data="userPerformance"
                   height="150px"
                 ></line-chart>
               </v-row>
@@ -180,14 +182,17 @@ export default {
   data() {
     return {
       userDetail: {},
+      userPerformance: {},
       isMobile: false,
-      tabPerformance: "one",
+      tabPerformance: "one_week",
     };
   },
   methods: {
     changeDataOneMonth(data) {
       this.tabPerformance = data;
-      // alert("Turning on alarm...");
+      this.userPerformance = this.userDetail.history.find(
+        (e) => e.type === this.tabPerformance
+      ).data;
     },
     goToOtherPage(data) {
       this.$router.push(data);
@@ -197,6 +202,9 @@ export default {
         const response = await axios.get(
           `${process.env.VUE_APP_ENDPOINT_URL}/users/1`
         );
+        this.userPerformance = response.data.history.find(
+          (e) => e.type === this.tabPerformance
+        ).data;
         this.userDetail = response.data; // Assuming the response contains an array of funds
       } catch (error) {
         console.log(error);

@@ -76,6 +76,15 @@
                               RM{{ fundDetail?.nav_price }}
                             </p>
                           </div>
+                          <div class="pl-10">
+                            <p class="text-center">YTD Return</p>
+                            <p
+                              class="text-h4 text-center"
+                              style="font-weight: 700"
+                            >
+                              {{ fundDetail?.ytd_return }}%
+                            </p>
+                          </div>
                         </div>
                       </v-col>
                     </v-row>
@@ -169,6 +178,7 @@
                           <v-btn
                             variant="tonal"
                             :disabled="disabledButton"
+                            color="primary"
                             @click="investFund"
                           >
                             Invest Now
@@ -205,6 +215,7 @@
                           <v-btn
                             variant="tonal"
                             :disabled="disabledButton"
+                            color="error"
                             @click="withdrawFund"
                           >
                             Withdraw Now
@@ -278,9 +289,9 @@ export default {
       tabInvest: "1",
       tabPerformance: "one_week",
       disabledButton: true,
-      buyAmount: 0.00,
+      buyAmount: 0.0,
       buyUnit: 0,
-      sellAmount: 0.00,
+      sellAmount: 0.0,
       sellUnit: 0,
       purchasedUnit: 0,
       currentValue: 0,
@@ -338,7 +349,8 @@ export default {
         (this.tabInvest === "1" ? this.buyUnit : this.sellUnit) *
         this.fundDetail?.nav_price *
         100;
-      if (this.tabInvest === "1") return (this.buyAmount = rawAmount.toFixed(2));
+      if (this.tabInvest === "1")
+        return (this.buyAmount = rawAmount.toFixed(2));
       return (this.sellAmount = rawAmount.toFixed(2));
     },
     async getFundList() {
