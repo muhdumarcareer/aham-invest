@@ -202,7 +202,11 @@
                           ></v-text-field>
                         </v-row>
                         <v-row justify="center">
-                          <v-btn variant="tonal" @click="withdrawFund">
+                          <v-btn
+                            variant="tonal"
+                            :disabled="disabledButton"
+                            @click="withdrawFund"
+                          >
                             Withdraw Now
                           </v-btn>
                         </v-row>
@@ -253,7 +257,12 @@
 <script>
 import MainSidebar from "@/components/MainSidebar.vue";
 import axios from "axios";
+import { useToast } from "vue-toastification";
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   components: { MainSidebar },
   mounted() {
     this.isMobile = this.$vuetify.display.mobile;
@@ -268,11 +277,11 @@ export default {
       isMobile: false,
       tabInvest: "1",
       tabPerformance: "one_week",
-      disabledButton: false,
-      buyAmount: 0,
-      sellAmount: 0,
-      sellUnit: 0,
+      disabledButton: true,
+      buyAmount: 0.00,
       buyUnit: 0,
+      sellAmount: 0.00,
+      sellUnit: 0,
       purchasedUnit: 0,
       currentValue: 0,
     };
@@ -286,8 +295,15 @@ export default {
           `${process.env.VUE_APP_ENDPOINT_URL}/users/invest/${id}`,
           { unitPrice: this.fundDetail?.nav_price, unit: this.buyUnit * 100 }
         );
+        this.getUserDetail();
+        this.toast.success("Invest Successful!");
+        this.buyUnit = 0;
+        this.sellUnit = 0;
         console.log("Investment successful:", response.data);
       } catch (error) {
+        this.buyUnit = 0;
+        this.sellUnit = 0;
+        this.toast.error("Invest Failed!");
         console.error("Investment failed:", error);
       }
     },
@@ -299,29 +315,31 @@ export default {
           `${process.env.VUE_APP_ENDPOINT_URL}/users/withdraw/${id}`,
           { unitPrice: this.fundDetail?.nav_price, unit: this.sellUnit * 100 }
         );
+        this.getUserDetail();
+        this.buyUnit = 0;
+        this.sellUnit = 0;
+        this.toast.success("Withdraw Successful!");
         console.log("Investment successful:", response.data);
       } catch (error) {
+        this.buyUnit = 0;
+        this.sellUnit = 0;
+        this.toast.error("Withdraw Failed!");
         console.error("Investment failed:", error);
       }
     },
-    // handleWithdraw() {
-
-    // }
     changeDataOneMonth(data) {
       this.tabPerformance = data;
       this.historyDate = this.fundDetail.history.find(
         (e) => e.type === this.tabPerformance
       ).data;
-
-      // alert("Turning on alarm...");
     },
     calculateAmount() {
       const rawAmount =
         (this.tabInvest === "1" ? this.buyUnit : this.sellUnit) *
         this.fundDetail?.nav_price *
         100;
-      if (this.tabInvest === "1") return (this.buyAmount = rawAmount);
-      return (this.sellAmount = rawAmount);
+      if (this.tabInvest === "1") return (this.buyAmount = rawAmount.toFixed(2));
+      return (this.sellAmount = rawAmount.toFixed(2));
     },
     async getFundList() {
       try {
@@ -343,9 +361,15 @@ export default {
         const response = await axios.get(
           `${process.env.VUE_APP_ENDPOINT_URL}/users/1`
         );
-        this.purchasedUnit = response.data?.fund?.find(
+        const checkBalance = response.data?.fund.find(
           (e) => e.fundId === Number(this.$route.params.id)
-        ).unit;
+        );
+        this.purchasedUnit = 0;
+        if (checkBalance) {
+          this.purchasedUnit = response.data?.fund?.find(
+            (e) => e.fundId === Number(this.$route.params.id)
+          ).unit;
+        }
         this.userDetail = response.data; // Assuming the response contains an array of funds
       } catch (error) {
         console.log(error);
@@ -354,12 +378,14 @@ export default {
   },
   watch: {
     buyUnit(newUnit) {
+      this.disabledButton = false;
       if (!Number(newUnit)) {
         this.disabledButton = true;
       }
       this.calculateAmount();
     },
     sellUnit(newUnit) {
+      this.disabledButton = false;
       if (!Number(newUnit)) {
         this.disabledButton = true;
       }

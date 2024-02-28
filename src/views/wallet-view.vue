@@ -94,6 +94,7 @@
                   :key="fund"
                   cols="12"
                   sm="4"
+                  md="6"
                   style="height: fit-content"
                 >
                   <v-card
@@ -181,64 +182,6 @@ export default {
       userDetail: {},
       isMobile: false,
       tabPerformance: "one",
-      fundList: [
-        {
-          id: 1,
-          name: "Speedster",
-          speed: 35,
-          length: 22,
-          price: 300000,
-          year: 2021,
-        },
-        {
-          id: 2,
-          name: "Speedster2",
-          speed: 35,
-          length: 22,
-          price: 300000,
-          year: 2021,
-        },
-        {
-          id: 3,
-          name: "OceanMaster",
-          speed: 25,
-          length: 35,
-          price: 500000,
-          year: 2020,
-        },
-        {
-          id: 4,
-          name: "Voyager",
-          speed: 20,
-          length: 45,
-          price: 700000,
-          year: 2019,
-        },
-        {
-          id: 5,
-          name: "WaveRunner",
-          speed: 40,
-          length: 19,
-          price: 250000,
-          year: 2022,
-        },
-        {
-          id: 6,
-          name: "Voyager",
-          speed: 20,
-          length: 45,
-          price: 700000,
-          year: 2019,
-        },
-        {
-          id: 7,
-          name: "WaveRunner",
-          speed: 40,
-          length: 19,
-          price: 250000,
-          year: 2022,
-        },
-      ],
     };
   },
   methods: {
