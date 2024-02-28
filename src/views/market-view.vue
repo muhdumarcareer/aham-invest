@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-card>
     <v-layout>
@@ -24,7 +25,13 @@
               item-value="name"
               fixed-header
               @click:row="selectRow"
-            ></v-data-table-virtual>
+            >
+              <template v-slot:item.shariah="{ item }">
+                <v-chip :color="item.shariah ? 'green' : 'red'" text>
+                  {{ item.shariah ? "Yes" : "No" }}
+                </v-chip>
+              </template>
+            </v-data-table-virtual>
           </v-card-text>
         </v-card>
       </v-main>
