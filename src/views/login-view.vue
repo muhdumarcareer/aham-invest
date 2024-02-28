@@ -20,7 +20,7 @@
 
                 <v-col cols="12">
                   <v-btn type="submit" block class="mt-2" color="blue" @click="goToHomePage">
-                    <p class="text-h5">Submit</p>
+                    <p class="text-h5">Login</p>
                   </v-btn>
                 </v-col>
               </v-row>
